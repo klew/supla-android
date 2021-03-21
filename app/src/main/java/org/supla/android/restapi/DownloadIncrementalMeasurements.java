@@ -38,9 +38,9 @@ public abstract class DownloadIncrementalMeasurements extends DownloadMeasuremen
         younger_item.setChannelId(getChannelId());
 
         if (older_item == null) {
-            older_item = getOlderUncalculatedIncrementalMeasurement(db,
-                    younger_item.getChannelId(),
-                    younger_item.getTimestamp());
+   //         older_item = getOlderUncalculatedIncrementalMeasurement(db,
+     //               younger_item.getChannelId(),
+       //             younger_item.getTimestamp());
 
             if (older_item != null) {
                 deleteUncalculatedIncrementalMeasurements(db, younger_item.getChannelId());
@@ -90,16 +90,16 @@ public abstract class DownloadIncrementalMeasurements extends DownloadMeasuremen
     protected void onFirstItem(SQLiteDatabase db) throws JSONException {
         super.onFirstItem(db);
         added = false;
-        older_item = null;
+     //   older_item = null;
     }
 
     protected void onLastItem(SQLiteDatabase db) throws JSONException {
         super.onLastItem(db);
-        if (older_item != null
-                && added) {
-            addIncrementalMeasurement(db, older_item);
-            older_item = null;
-        }
+//        if (older_item != null
+  //              && added) {
+    //        addIncrementalMeasurement(db, older_item);
+      //      older_item = null;
+       // }
     }
 
 }

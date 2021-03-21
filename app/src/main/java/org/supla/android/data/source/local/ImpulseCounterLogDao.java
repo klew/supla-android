@@ -81,7 +81,7 @@ public class ImpulseCounterLogDao extends MeasurementsBaseDao {
 
         return getItem(ImpulseCounterMeasurementItem::new, projection, SuplaContract.ImpulseCounterLogEntry.TABLE_NAME,
                 key(SuplaContract.ImpulseCounterLogEntry.COLUMN_NAME_CHANNELID, channelId),
-                key(SuplaContract.ImpulseCounterLogEntry.COLUMN_NAME_TIMESTAMP, timestamp),
+             //   key(SuplaContract.ImpulseCounterLogEntry.COLUMN_NAME_TIMESTAMP, timestamp),
                 key(SuplaContract.ImpulseCounterLogEntry.COLUMN_NAME_INCREASE_CALCULATED, 0));
     }
 
