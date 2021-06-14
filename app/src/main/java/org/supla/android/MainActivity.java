@@ -45,7 +45,6 @@ import org.supla.android.lib.SuplaConst;
 import org.supla.android.lib.SuplaEvent;
 import org.supla.android.listview.ChannelListView;
 import org.supla.android.listview.ListViewCursorAdapter;
-import org.supla.android.listview.SectionLayout;
 import org.supla.android.listview.draganddrop.ListViewDragListener;
 import org.supla.android.restapi.DownloadUserIcons;
 import org.supla.android.restapi.SuplaRestApiClientTask;
@@ -157,7 +156,9 @@ public class MainActivity extends NavigationActivity implements OnClickListener,
     }
 
     private boolean onDragStarted(View view, int position, ChannelListView listView) {
-        if (listView.isDetailSliding()) {
+        if (listView.isDetailVisible()
+                || listView.isDetailSliding()
+                || listView.isChannelLayoutSlided()) {
             dragInitialPosition = null;
             return false;
         }
@@ -557,6 +558,11 @@ public class MainActivity extends NavigationActivity implements OnClickListener,
 
         if (client == null)
             return;
+
+        if (!up && client.turnOnOff(this, !left, remoteId, clv == cgroupLV,
+                channelFunc, true)) {
+            return;
+        }
 
         if (!left && !up && (channelFunc == SuplaConst.SUPLA_CHANNELFNC_VALVE_OPENCLOSE
                 || channelFunc == SuplaConst.SUPLA_CHANNELFNC_VALVE_PERCENTAGE)) {
