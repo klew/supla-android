@@ -98,15 +98,13 @@ public abstract class DownloadMeasurementLogs extends SuplaRestApiClientTask {
             }
         }
 
-        AfterTimestamp = getMaxTimestamp() + getMaxTimestampInitialOffset();
-        if (AfterTimestamp <= 0) {
-            AfterTimestamp = 1;
-        }
-
+        AfterTimestamp = getMaxTimestamp() - 1;
         int LocalTotalCount = getLocalTotalCount();
         Double percent = 0d;
 
         do {
+            Trace.d(log_tag, "API REQUEST");
+
             result = apiRequest("channels/"
                     + Integer.toString(getChannelId())
                     + "/measurement-logs?order=ASC"
@@ -194,6 +192,7 @@ public abstract class DownloadMeasurementLogs extends SuplaRestApiClientTask {
 
         } while (!isCancelled());
 
+        Trace.d(log_tag, "isCanceled == true");
 
         return null;
     }
