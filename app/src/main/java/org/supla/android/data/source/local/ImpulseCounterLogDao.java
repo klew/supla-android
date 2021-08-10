@@ -125,10 +125,4 @@ public class ImpulseCounterLogDao extends MeasurementsBaseDao {
         delete(SuplaContract.ImpulseCounterLogEntry.TABLE_NAME,
                 key(SuplaContract.ImpulseCounterLogEntry.COLUMN_NAME_CHANNELID, channelId));
     }
-
-    public void deleteUncalculatedImpulseCounterMeasurements(int channelId) {
-        delete(SuplaContract.ImpulseCounterLogEntry.TABLE_NAME,
-                key(SuplaContract.ImpulseCounterLogEntry.COLUMN_NAME_INCREASE_CALCULATED, 0),
-                key(SuplaContract.ImpulseCounterLogEntry.COLUMN_NAME_CHANNELID, channelId));
-    }
 }

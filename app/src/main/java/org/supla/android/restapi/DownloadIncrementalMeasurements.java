@@ -11,21 +11,19 @@ public abstract class DownloadIncrementalMeasurements extends DownloadMeasuremen
 
     private IncrementalMeasurementItem older_item = null;
     private IncrementalMeasurementItem younger_item = null;
-    private boolean added = false;
 
     public DownloadIncrementalMeasurements(Context context) {
         super(context);
     }
 
+    @Override
+    protected long getMaxTimestampInitialOffset() {
+        return -2;
+    }
+
     protected abstract IncrementalMeasurementItem newObject();
 
     protected abstract IncrementalMeasurementItem newObject(IncrementalMeasurementItem src);
-
-    protected abstract IncrementalMeasurementItem getOlderUncalculatedIncrementalMeasurement(
-            SQLiteDatabase db, int channelId, long timestamp);
-
-    protected abstract void deleteUncalculatedIncrementalMeasurements(SQLiteDatabase db,
-                                                                      int channelId);
 
     protected abstract void addIncrementalMeasurement(SQLiteDatabase db,
                                                       IncrementalMeasurementItem item);
@@ -68,9 +66,7 @@ public abstract class DownloadIncrementalMeasurements extends DownloadMeasuremen
                 }
 
                 for (int a = 0; a < n; a++) {
-                    if (a < n - 1) {
-                        citem.setComplement(true);
-                    }
+                    citem.setComplement(a < n - 1);
                     addIncrementalMeasurement(db, citem);
                     citem.setTimestamp(citem.getTimestamp() - 600);
                 }
@@ -78,8 +74,6 @@ public abstract class DownloadIncrementalMeasurements extends DownloadMeasuremen
             } else {
                 addIncrementalMeasurement(db, citem);
             }
-
-            added = true;
         }
 
         if (correctDateOrder) {
